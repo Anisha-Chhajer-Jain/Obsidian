@@ -169,9 +169,17 @@ function SubScoreBar({ label, value, weight, note, icon, delay = 0 }: {
   );
 }
 
+<<<<<<< Updated upstream
 function RecallPanel({ ev }: { ev: TrustScoreResponse["recall_eval"] }) {
   const matchColor = ev.match === true ? "#10B981" : ev.match === false ? "#EF4444" : "var(--color-text-muted)";
   const matchText = ev.match === true ? "✓ Match" : ev.match === false ? "✗ No Match" : "N/A";
+=======
+// ── RecallEvalPanel ───────────────────────────────────────────────────────────
+function RecallEvalPanel({ eval: ev }: { eval: TrustScoreResponse["recall_eval"] }) {
+  const matchColor = ev.match === true ? "#10B981" : ev.match === false ? "#EF4444" : "var(--color-text-muted)";
+  const matchText  = ev.match === true ? "✓ Match" : ev.match === false ? "✗ No match" : "– N/A";
+
+>>>>>>> Stashed changes
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}

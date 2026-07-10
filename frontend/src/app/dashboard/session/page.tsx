@@ -61,9 +61,46 @@ export default function SessionPage() {
       <div className="section-header" style={{ marginBottom: 0 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 16 }}>
           <div>
+<<<<<<< Updated upstream
             <h1 style={{ margin: 0, fontSize: "22px", fontWeight: 800, color: "var(--color-text-primary)", display: "flex", alignItems: "center", gap: 10 }}>
               <div style={{ width: 36, height: 36, borderRadius: 10, background: "rgba(99,102,241,0.1)", border: "1px solid rgba(99,102,241,0.2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <Activity size={18} style={{ color: "var(--color-accent-light)" }} />
+=======
+            <h2 style={{ margin: "0 0 4px", fontSize: "18px", fontWeight: 700, color: "var(--color-text-primary)" }}>Current Session</h2>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <span className="status-dot online" />
+              <span style={{ fontSize: "13px", color: "var(--color-text-muted)" }}>Active for {uptime}</span>
+            </div>
+          </div>
+          
+          <button
+            onClick={handleReset}
+            disabled={resetting}
+            className="btn btn-danger"
+            style={{ padding: "8px 16px" }}
+          >
+            {resetting ? (
+              <span className="animate-spin" style={{ display: "inline-block", width: 14, height: 14 }}>↻</span>
+            ) : (
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+            )}
+            Reset Session & Budget
+          </button>
+        </div>
+
+        {/* Big Budget Gauge */}
+        <div style={{ background: "rgba(17,24,39,0.4)", borderRadius: "12px", padding: "24px", border: "1px solid rgba(255,255,255,0.12)" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "12px" }}>
+            <div>
+              <p style={{ margin: "0 0 4px", fontSize: "12px", fontWeight: 600, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.06em" }}>Budget Remaining</p>
+              <div style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>
+                <span className="font-mono-data" style={{ fontSize: "36px", fontWeight: 700, color: budgetBarColor, lineHeight: 1 }}>
+                  {formatINR(budget.remaining, 5)}
+                </span>
+                <span className="font-mono-data" style={{ fontSize: "16px", color: "var(--color-text-muted)" }}>/ {formatINR(budget.max)}</span>
+>>>>>>> Stashed changes
               </div>
               Current Session
             </h1>
@@ -71,6 +108,37 @@ export default function SessionPage() {
               <span className="status-dot online" />
               <span style={{ fontSize: 13, color: "var(--color-text-muted)" }}>Active for <span className="font-mono-data" style={{ color: "var(--color-text-secondary)" }}>{uptime}</span></span>
             </div>
+<<<<<<< Updated upstream
+=======
+             <span style={{ fontSize: "12px", fontWeight: 600, color: budgetBarColor, background: `${budgetBarColor}18`, padding: "4px 12px", borderRadius: "999px" }}>
+              {isWarning ? "EXHAUSTED" : budget.pct > 60 ? "HEALTHY" : "LOW"}
+            </span>
+          </div>
+
+          <div className="progress-track" style={{ height: "12px", background: "rgba(255,255,255,0.12)" }}>
+            <motion.div className="progress-fill"
+              initial={{ width: "100%" }}
+              animate={{ width: `${budget.pct}%` }}
+              transition={{ type: "spring", stiffness: 60, damping: 20 }}
+              style={{ background: budgetBarColor }}
+            />
+          </div>
+        </div>
+
+        {/* Session Stats Grid */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px", marginTop: "24px" }}>
+          <div style={{ padding: "16px", background: "rgba(17,24,39,0.4)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: "10px" }}>
+            <p style={{ margin: "0 0 4px", fontSize: "12px", color: "var(--color-text-muted)" }}>Total Spend</p>
+            <p className="font-mono-data" style={{ margin: 0, fontSize: "20px", fontWeight: 600, color: "var(--color-text-primary)" }}>{formatINR(totalSpend, 5)}</p>
+          </div>
+          <div style={{ padding: "16px", background: "rgba(17,24,39,0.4)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: "10px" }}>
+            <p style={{ margin: "0 0 4px", fontSize: "12px", color: "var(--color-text-muted)" }}>Total Queries</p>
+            <p className="font-mono-data" style={{ margin: 0, fontSize: "20px", fontWeight: 600, color: "var(--color-text-primary)" }}>{totalQueries}</p>
+          </div>
+          <div style={{ padding: "16px", background: "rgba(17,24,39,0.4)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: "10px" }}>
+            <p style={{ margin: "0 0 4px", fontSize: "12px", color: "var(--color-text-muted)" }}>Blocked</p>
+            <p className="font-mono-data" style={{ margin: 0, fontSize: "20px", fontWeight: 600, color: blockedQueries > 0 ? "#DC2626" : "var(--color-text-primary)" }}>{blockedQueries}</p>
+>>>>>>> Stashed changes
           </div>
           <button onClick={handleReset} disabled={resetting} className="btn btn-danger" style={{ padding: "8px 16px" }}>
             {resetting ? <span className="animate-spin" style={{ display: "inline-block", width: 14, height: 14 }}>⟳</span> : <RotateCcw size={14} />}

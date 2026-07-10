@@ -47,7 +47,7 @@ export function ToastContainer() {
       </svg>
     ),
     info: (
-      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#6B7280" strokeWidth={2.5}>
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="var(--color-text-muted)" strokeWidth={2.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
@@ -70,7 +70,7 @@ export function ToastContainer() {
             <span style={{ flex: 1 }}>{toast.message}</span>
             <button
               onClick={() => setToasts((prev) => prev.filter((t) => t.id !== toast.id))}
-              style={{ background: "none", border: "none", cursor: "pointer", color: "#6B7280", padding: "0 0 0 4px", flexShrink: 0 }}
+              style={{ background: "none", border: "none", cursor: "pointer", color: "var(--color-text-muted)", padding: "0 0 0 4px", flexShrink: 0 }}
             >
               <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />

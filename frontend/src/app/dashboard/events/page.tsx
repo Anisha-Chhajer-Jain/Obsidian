@@ -88,11 +88,22 @@ export default function EventsPage() {
       </div>
 
       {/* Controls */}
+<<<<<<< Updated upstream
       <div className="card" style={{ padding: "16px 20px" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "12px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap", flex: 1, minWidth: "250px" }}>
             <div style={{ position: "relative", width: "100%", maxWidth: "280px" }}>
               <Search size={15} style={{ position: "absolute", left: "10px", top: "50%", transform: "translateY(-50%)", color: "var(--color-text-muted)" }} />
+=======
+      <div className="card" style={{ padding: "20px" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "16px" }}>
+          
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap", flex: 1, minWidth: "250px" }}>
+            <div style={{ position: "relative", width: "100%", maxWidth: "300px" }}>
+              <svg style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "var(--color-text-muted)" }} width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+>>>>>>> Stashed changes
               <input
                 type="text"
                 className="input"
@@ -119,9 +130,18 @@ export default function EventsPage() {
             </select>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+<<<<<<< Updated upstream
             <span style={{ fontSize: 11.5, fontWeight: 700, fontFamily: "'Space Grotesk', sans-serif", color: "var(--color-text-muted)", background: "var(--color-surface-elevated)", border: "1px solid var(--color-border-subtle)", borderRadius: 999, padding: "2px 10px" }}>{filtered.length} results</span>
             <button onClick={downloadCSV} className="btn btn-ghost" disabled={filtered.length === 0} style={{ padding: "5px 12px", fontSize: "12px" }}>
               <Download size={13} /> Export CSV
+=======
+            <span className="font-mono-data" style={{ fontSize: "12px", color: "var(--color-text-muted)" }}>{filtered.length} results</span>
+            <button onClick={downloadCSV} className="btn btn-ghost" disabled={filtered.length === 0} style={{ padding: "6px 14px", fontSize: "13px" }}>
+              <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              Export CSV
+>>>>>>> Stashed changes
             </button>
           </div>
         </div>
@@ -150,7 +170,11 @@ export default function EventsPage() {
               <tbody>
                 <AnimatePresence initial={false}>
                   {filtered.map((r, i) => {
+<<<<<<< Updated upstream
                     const catColor = CATEGORY_COLORS[r.category] ?? "#5C5D63";
+=======
+                    const catColor = CATEGORY_COLORS[r.category] ?? "var(--color-text-muted)";
+>>>>>>> Stashed changes
                     return (
                       <motion.tr
                         key={`${r.timestamp_ms}-${i}`}
@@ -158,11 +182,23 @@ export default function EventsPage() {
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.15 }}
                       >
+<<<<<<< Updated upstream
                         <td className="font-mono-data" style={{ color: "var(--color-text-muted)", fontSize: "11px", whiteSpace: "nowrap" }}>
                           {new Date(r.timestamp_ms).toLocaleString("en-US", {
                             month: "short", day: "numeric",
                             hour: "2-digit", minute: "2-digit", second: "2-digit",
                             hour12: false, timeZone: "Asia/Kolkata",
+=======
+                        <td className="font-mono-data" style={{ color: "var(--color-text-muted)", fontSize: "11.5px", whiteSpace: "nowrap" }}>
+                          {new Date(r.timestamp_ms).toLocaleString("en-US", { 
+                            month: "short",
+                            day: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            second: "2-digit",
+                            hour12: false,
+                            timeZone: "Asia/Kolkata",
+>>>>>>> Stashed changes
                           })}
                         </td>
                         <td>
@@ -171,7 +207,11 @@ export default function EventsPage() {
                             {CATEGORY_LABELS[r.category] ?? r.category}
                           </span>
                         </td>
+<<<<<<< Updated upstream
                         <td className="font-mono-data" style={{ fontSize: "11.5px", color: "var(--color-text-secondary)" }}>
+=======
+                        <td className="font-mono-data" style={{ fontSize: "12px", color: "var(--color-text-secondary)" }}>
+>>>>>>> Stashed changes
                           {r.audit_event.model ?? <span style={{ color: "var(--color-text-muted)" }}>—</span>}
                         </td>
                         <td>
@@ -186,7 +226,11 @@ export default function EventsPage() {
                         <td className="font-mono-data right" style={{ fontSize: "12px", fontWeight: 600, color: "var(--color-text-primary)" }}>
                           {r.audit_event.cost_total != null ? formatINR(r.audit_event.cost_total, 5) : "—"}
                         </td>
+<<<<<<< Updated upstream
                         <td className="font-mono-data right" style={{ color: "var(--color-text-muted)", fontSize: "11.5px" }}>
+=======
+                        <td className="font-mono-data right" style={{ color: "var(--color-text-muted)", fontSize: "12px" }}>
+>>>>>>> Stashed changes
                           {r.audit_event.latency_used_ms != null ? formatLatency(r.audit_event.latency_used_ms) : "—"}
                         </td>
                         <td className="font-mono-data right" style={{ fontSize: "11.5px", color: "var(--color-text-secondary)" }}>
@@ -200,8 +244,16 @@ export default function EventsPage() {
                   <tr>
                     <td colSpan={7}>
                       <div className="empty-state" style={{ padding: "60px 20px" }}>
+<<<<<<< Updated upstream
                         <p style={{ margin: 0, fontWeight: 600, color: "var(--color-text-primary)", fontSize: "13.5px" }}>No events found</p>
                         <p style={{ margin: "4px 0 0", fontSize: "12.5px", color: "var(--color-text-muted)" }}>Try adjusting your filters or search query.</p>
+=======
+                         <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="var(--color-text-muted)" strokeWidth={1.5} style={{ marginBottom: "8px" }}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                        </svg>
+                        <p style={{ margin: 0, fontWeight: 600, color: "var(--color-text-primary)", fontSize: "14px" }}>No events found</p>
+                        <p style={{ margin: "4px 0 0", fontSize: "13px", color: "var(--color-text-muted)" }}>Try adjusting your filters or search query.</p>
+>>>>>>> Stashed changes
                       </div>
                     </td>
                   </tr>

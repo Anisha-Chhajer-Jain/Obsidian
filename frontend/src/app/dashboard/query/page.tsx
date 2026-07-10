@@ -86,9 +86,15 @@ export default function QueryPage() {
       {/* Query input card */}
       <div className="card glow-focus" style={{ padding: 24 }}>
         <div style={{ marginBottom: "16px" }}>
+<<<<<<< Updated upstream
           <h2 style={{ margin: 0, fontSize: "15px", fontWeight: 700, color: "var(--color-text-primary)" }}>Submit a Query</h2>
           <p style={{ margin: "4px 0 0", fontSize: "12.5px", color: "var(--color-text-muted)" }}>
             Routed through cascadeflow enforce mode → Groq. Press Enter or click Send.
+=======
+          <h2 style={{ margin: 0, fontSize: "15px", fontWeight: 600, color: "var(--color-text-primary)" }}>Submit a Query</h2>
+          <p style={{ margin: "4px 0 0", fontSize: "13px", color: "var(--color-text-muted)" }}>
+            Routed through cascadeflow enforce mode → Groq (qwen3-32b). Press Enter or click Send.
+>>>>>>> Stashed changes
           </p>
         </div>
 
@@ -109,9 +115,15 @@ export default function QueryPage() {
 
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "10px" }}>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+<<<<<<< Updated upstream
             <span style={{ fontSize: "11px", color: "var(--color-text-muted)", fontWeight: 500, alignSelf: "center" }}>Try:</span>
             {EXAMPLE_QUERIES.map(ex => (
               <button key={ex} onClick={() => setQuery(ex)} className="chip" style={{ fontSize: "11px" }}>
+=======
+            <span style={{ fontSize: "11.5px", color: "var(--color-text-muted)", fontWeight: 500, alignSelf: "center" }}>Try:</span>
+            {EXAMPLE_QUERIES.slice(0, 4).map(ex => (
+              <button key={ex} onClick={() => setQuery(ex)} className="chip" style={{ fontSize: "11.5px" }}>
+>>>>>>> Stashed changes
                 {ex}
               </button>
             ))}
@@ -150,7 +162,11 @@ export default function QueryPage() {
       <AnimatePresence initial={false}>
         {history.map((item) => {
           const r = item.result;
+<<<<<<< Updated upstream
           const catColor = CATEGORY_COLORS[r.category] ?? "#5C5D63";
+=======
+          const catColor = CATEGORY_COLORS[r.category] ?? "var(--color-text-muted)";
+>>>>>>> Stashed changes
           return (
             <motion.div
               key={item.ts}
@@ -163,8 +179,19 @@ export default function QueryPage() {
               {/* Header */}
               <div style={{ padding: "12px 20px", borderBottom: "1px solid var(--color-border)", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "8px" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
+<<<<<<< Updated upstream
                   <span className="font-mono-data" style={{ fontSize: "11px", color: "var(--color-text-muted)" }}>
                     {new Date(item.ts).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false, timeZone: "Asia/Kolkata" })}
+=======
+                  <span style={{ fontSize: "11.5px", fontFamily: "monospace", color: "var(--color-text-muted)" }}>
+                    {new Date(item.ts).toLocaleTimeString("en-US", {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      second: "2-digit",
+                      hour12: false,
+                      timeZone: "Asia/Kolkata",
+                    })}
+>>>>>>> Stashed changes
                   </span>
                   <span style={{ display: "inline-flex", alignItems: "center", gap: "5px", fontSize: "12px", fontWeight: 600, color: catColor }}>
                     <span style={{ width: 5, height: 5, borderRadius: "50%", background: catColor, display: "inline-block" }} />
@@ -174,20 +201,30 @@ export default function QueryPage() {
                 </div>
                 <div style={{ display: "flex", gap: "12px" }}>
                   {r.audit_event?.cost_total != null && (
+<<<<<<< Updated upstream
                     <span className="font-mono-data" style={{ fontSize: "11px", color: "var(--color-text-muted)" }}>
+=======
+                    <span className="font-mono-data" style={{ fontSize: "11.5px", color: "var(--color-text-muted)" }}>
+>>>>>>> Stashed changes
                       Cost: <strong style={{ color: "var(--color-text-primary)" }}>{formatINR(r.audit_event.cost_total, 5)}</strong>
                     </span>
                   )}
                   {r.audit_event?.latency_used_ms != null && (
+<<<<<<< Updated upstream
                     <span className="font-mono-data" style={{ fontSize: "11px", color: "var(--color-text-muted)" }}>
                       <Clock size={11} style={{ display: "inline", verticalAlign: "middle", marginRight: "3px" }} />
                       {formatLatency(r.audit_event.latency_used_ms)}
+=======
+                    <span className="font-mono-data" style={{ fontSize: "11.5px", color: "var(--color-text-muted)" }}>
+                      Latency: <strong style={{ color: "var(--color-text-primary)" }}>{formatLatency(r.audit_event.latency_used_ms)}</strong>
+>>>>>>> Stashed changes
                     </span>
                   )}
                 </div>
               </div>
 
               {/* Query */}
+<<<<<<< Updated upstream
               <div style={{ padding: "12px 20px 8px" }}>
                 <p style={{ margin: 0, fontSize: "10px", fontWeight: 700, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "4px" }}>Query</p>
                 <p style={{ margin: 0, fontSize: "13px", color: "var(--color-text-primary)" }}>{item.query}</p>
@@ -197,6 +234,17 @@ export default function QueryPage() {
               <div style={{ padding: "8px 20px 16px" }}>
                 <p style={{ margin: "0 0 6px", fontSize: "10px", fontWeight: 700, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.06em" }}>Response</p>
                 <div className="code-block" style={{ fontSize: "12px" }}>{r.response}</div>
+=======
+              <div style={{ padding: "12px 20px 8px", background: "rgba(17,24,39,0.4)" }}>
+                <p style={{ margin: 0, fontSize: "11px", fontWeight: 600, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "4px" }}>Query</p>
+                <p style={{ margin: 0, fontSize: "13.5px", color: "var(--color-text-primary)" }}>{item.query}</p>
+              </div>
+
+              {/* Response */}
+              <div style={{ padding: "12px 20px 16px" }}>
+                <p style={{ margin: "0 0 6px", fontSize: "11px", fontWeight: 600, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.06em" }}>Response</p>
+                <div className="code-block" style={{ fontSize: "12.5px" }}>{r.response}</div>
+>>>>>>> Stashed changes
               </div>
 
               {/* Audit details */}
@@ -208,9 +256,15 @@ export default function QueryPage() {
                     { k: "Mode", v: r.audit_event?.decision_mode ?? "enforce" },
                     { k: "Budget left", v: formatINR(r.audit_event?.budget_state?.remaining ?? 0, 5) },
                   ].map(({ k, v }) => (
+<<<<<<< Updated upstream
                     <div key={k} style={{ padding: "4px 10px", background: "var(--color-surface-elevated)", border: "1px solid var(--color-border-subtle)", borderRadius: "6px" }}>
                       <span style={{ fontSize: "10px", color: "var(--color-text-muted)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.04em" }}>{k}: </span>
                       <span className="font-mono-data" style={{ fontSize: "11px", color: "var(--color-text-secondary)" }}>{v}</span>
+=======
+                    <div key={k} style={{ padding: "5px 10px", background: "rgba(17,24,39,0.4)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: "6px" }}>
+                      <span style={{ fontSize: "10.5px", color: "var(--color-text-muted)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em" }}>{k}: </span>
+                      <span className="font-mono-data" style={{ fontSize: "11.5px", color: "var(--color-text-primary)" }}>{v}</span>
+>>>>>>> Stashed changes
                     </div>
                   ))}
                 </div>
@@ -228,8 +282,13 @@ export default function QueryPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
               </svg>
             </div>
+<<<<<<< Updated upstream
             <p style={{ margin: 0, fontWeight: 600, color: "var(--color-text-primary)", fontSize: "13.5px" }}>No queries yet</p>
             <p style={{ margin: 0, fontSize: "12.5px", color: "var(--color-text-muted)" }}>Type a query above and press Send or Enter</p>
+=======
+            <p style={{ margin: 0, fontWeight: 600, color: "var(--color-text-primary)", fontSize: "14px" }}>No queries yet</p>
+            <p style={{ margin: 0, fontSize: "13px", color: "var(--color-text-muted)" }}>Type a query above and press Send or Enter</p>
+>>>>>>> Stashed changes
           </div>
         </div>
       )}

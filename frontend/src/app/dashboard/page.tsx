@@ -99,6 +99,7 @@ function StatCard({ label, value, sub, color, icon, trend, delay = 0 }: {
 
       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 10 }}>
         <div style={{ flex: 1, minWidth: 0 }}>
+<<<<<<< Updated upstream
           <p style={{
             margin: 0,
             fontSize: 10,
@@ -129,6 +130,12 @@ function StatCard({ label, value, sub, color, icon, trend, delay = 0 }: {
               {trend}
             </p>
           )}
+=======
+          <p style={{ margin: 0, fontSize: "11px", fontWeight: 600, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.06em" }}>{label}</p>
+          <p className="font-mono-data" style={{ margin: "5px 0 0", fontSize: "26px", fontWeight: 700, color: "var(--color-text-primary)", lineHeight: 1, wordBreak: "break-all" }}>{value}</p>
+          {sub && <p style={{ margin: "5px 0 0", fontSize: "11.5px", color: "var(--color-text-muted)" }}>{sub}</p>}
+          {trend && <p style={{ margin: "4px 0 0", fontSize: "11.5px", color }}>{trend}</p>}
+>>>>>>> Stashed changes
         </div>
         <motion.div
           animate={{ boxShadow: [`0 0 12px ${color}30`, `0 0 24px ${color}50`, `0 0 12px ${color}30`] }}
@@ -261,14 +268,45 @@ export default function DashboardPage() {
     events.forEach(r => { counts[r.category] = (counts[r.category] ?? 0) + 1; });
     return Object.entries(counts).map(([cat, value]) => ({
       name: CATEGORY_LABELS[cat] ?? cat, value,
+<<<<<<< Updated upstream
       color: CATEGORY_COLORS[cat] ?? "#5C5D63",
+=======
+      color: CATEGORY_COLORS[cat] ?? "var(--color-text-muted)",
+>>>>>>> Stashed changes
     }));
   }, [events]);
 
   const budgetBarColor = isWarning ? "#F87171" : budget.pct < 40 ? "#FBBF24" : "#34D399";
 
   return (
+<<<<<<< Updated upstream
     <div className="animate-fade-in" style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+=======
+    <div className="animate-fade-in" style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+      {/* Top action row */}
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "10px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <span className="status-dot online" />
+          <span style={{ fontSize: "12.5px", fontWeight: 500, color: "var(--color-text-muted)" }}>
+            Live · {uptime} · {events.length} events
+          </span>
+        </div>
+        <button
+          id="reset-session-btn"
+          onClick={handleReset}
+          disabled={resetting}
+          className="btn btn-danger"
+          style={{ fontSize: "13px", padding: "6px 14px" }}
+        >
+          {resetting ? <span className="animate-spin" style={{ display: "inline-block", width: 14, height: 14 }}>↻</span> : (
+            <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+          )}
+          Reset Session
+        </button>
+      </div>
+>>>>>>> Stashed changes
 
       {/* Hero header */}
       <motion.div
@@ -369,6 +407,7 @@ export default function DashboardPage() {
         />
       </div>
 
+<<<<<<< Updated upstream
       {/* Budget & Charts row */}
       <div style={{ display: "grid", gridTemplateColumns: "300px 1fr", gap: 16 }}>
         {/* Budget arc card */}
@@ -399,6 +438,47 @@ export default function DashboardPage() {
             }}>
               {isWarning ? "EXCEEDED" : budget.pct > 60 ? "HEALTHY" : "LOW"}
             </span>
+=======
+      {/* Budget bar */}
+      <div className={`card${isWarning ? " animate-pulse-warning" : ""}`} style={{ padding: "18px 22px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px", flexWrap: "wrap", gap: "8px" }}>
+          <div>
+            <p style={{ margin: 0, fontSize: "12px", fontWeight: 600, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.06em" }}>Budget Consumption</p>
+            <p style={{ margin: "3px 0 0", fontSize: "13px", color: "var(--color-text-primary)" }}>
+              <span className="font-mono-data" style={{ fontWeight: 700, color: budgetBarColor }}>{(100 - budget.pct).toFixed(1)}%</span>
+              {" used · "}
+              {isWarning ? "Budget exhausted — reset session to continue" : `${formatINR(budget.remaining, 5)} remaining`}
+            </p>
+          </div>
+          <span style={{ fontSize: "11.5px", fontWeight: 600, color: budgetBarColor, background: `${budgetBarColor}18`, padding: "4px 10px", borderRadius: "999px" }}>
+            {isWarning ? "EXCEEDED" : budget.pct > 60 ? "HEALTHY" : "LOW"}
+          </span>
+        </div>
+        <div className="progress-track">
+          <motion.div className="progress-fill"
+            initial={{ width: "100%" }}
+            animate={{ width: `${budget.pct}%` }}
+            transition={{ type: "spring", stiffness: 60, damping: 20 }}
+            style={{ background: budgetBarColor }}
+          />
+        </div>
+        <div style={{ display: "flex", justifyContent: "space-between", marginTop: "5px" }}>
+          <span className="font-mono-data" style={{ fontSize: "10.5px", color: "var(--color-text-muted)" }}>{formatINR(0)}</span>
+          <span className="font-mono-data" style={{ fontSize: "10.5px", color: "var(--color-text-muted)" }}>{formatINR(budget.max)}</span>
+        </div>
+      </div>
+
+      {/* Charts */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "16px", maxWidth: "1200px" }}>
+        {/* Cost curve */}
+        <div className="card" style={{ padding: "20px" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
+            <div>
+              <p style={{ margin: 0, fontWeight: 600, color: "var(--color-text-primary)", fontSize: "13.5px" }}>Cost Curve</p>
+              <p style={{ margin: "2px 0 0", fontSize: "11.5px", color: "var(--color-text-muted)" }}>Per-query cost + cumulative</p>
+            </div>
+            <span className="font-mono-data" style={{ fontSize: "10.5px", color: "var(--color-text-muted)", background: "rgba(17,24,39,0.4)", padding: "3px 8px", borderRadius: "5px", border: "1px solid rgba(255,255,255,0.12)" }}>{chartData.length} pts</span>
+>>>>>>> Stashed changes
           </div>
 
           {/* Arc gauge */}
@@ -466,18 +546,28 @@ export default function DashboardPage() {
                     <feMerge><feMergeNode in="coloredBlur" /><feMergeNode in="SourceGraphic" /></feMerge>
                   </filter>
                 </defs>
+<<<<<<< Updated upstream
                 <CartesianGrid strokeDasharray="4 4" stroke="rgba(99,102,241,0.06)" vertical={false} />
                 <XAxis dataKey="time" stroke="transparent" tick={{ fontSize: 9, fill: "#4E5170" }} axisLine={false} tickLine={false} />
                 <YAxis stroke="transparent" tick={{ fontSize: 9, fill: "#4E5170" }} tickFormatter={v => formatINR(Number(v), 3)} axisLine={false} tickLine={false} />
                 <Tooltip contentStyle={tooltipStyle} itemStyle={{ color: "#F0F0FF" }} />
                 <Area type="monotone" dataKey="cost"       name="Per-query"  stroke="#6366F1" strokeWidth={2.5} fill="url(#gAccent)" dot={false} filter="url(#glow-line)" />
                 <Area type="monotone" dataKey="cumulative" name="Cumulative" stroke="#A78BFA" strokeWidth={2.5} fill="url(#gPurple)" dot={false} />
+=======
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" vertical={false} />
+                <XAxis dataKey="time" stroke="var(--color-text-muted)" tick={{ fontSize: 9 }} axisLine={false} tickLine={false} />
+                <YAxis stroke="var(--color-text-muted)" tick={{ fontSize: 9 }} tickFormatter={v => formatINR(Number(v), 3)} axisLine={false} tickLine={false} />
+                <Tooltip contentStyle={{ background: "#1F2937", border: "1px solid rgba(255,255,255,0.12)", color: "var(--color-text-primary)", borderRadius: "8px", fontSize: "11px", boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.3)" }} itemStyle={{ color: "var(--color-text-primary)" }} />
+                <Area type="monotone" dataKey="cost" name="Per-query" stroke="#0D9488" strokeWidth={3} fill="url(#gTeal)" dot={false} isAnimationActive={true} animationDuration={1200} animationEasing="ease-out" />
+                <Area type="monotone" dataKey="cumulative" name="Cumulative" stroke="#6366F1" strokeWidth={3} fill="url(#gIndigo)" style={{ filter: "url(#shadow)" }} dot={false} isAnimationActive={true} animationDuration={1200} animationEasing="ease-out" />
+>>>>>>> Stashed changes
               </AreaChart>
             </ResponsiveContainer>
           </div>
         </motion.div>
       </div>
 
+<<<<<<< Updated upstream
       {/* Category mix + Quick actions row */}
       <div style={{ display: "grid", gridTemplateColumns: "280px 1fr", gap: 16 }}>
         {/* Category donut */}
@@ -490,6 +580,12 @@ export default function DashboardPage() {
         >
           <p style={{ margin: "0 0 2px", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, color: "var(--color-text-primary)", fontSize: 14 }}>Category Mix</p>
           <p style={{ margin: "0 0 16px", fontSize: 11.5, color: "var(--color-text-muted)" }}>Query distribution by type</p>
+=======
+        {/* Category mix */}
+        <div className="card" style={{ padding: "20px" }}>
+          <p style={{ margin: "0 0 4px", fontWeight: 600, color: "var(--color-text-primary)", fontSize: "13.5px" }}>Category Mix</p>
+          <p style={{ margin: "0 0 14px", fontSize: "11.5px", color: "var(--color-text-muted)" }}>Query distribution by type</p>
+>>>>>>> Stashed changes
           {categoryData.length > 0 ? (
             <>
               <div style={{ height: 140 }}>
@@ -510,26 +606,43 @@ export default function DashboardPage() {
                         <Cell key={i} fill={entry.color} style={{ filter: `drop-shadow(0 0 4px ${entry.color}60)` }} />
                       ))}
                     </Pie>
+<<<<<<< Updated upstream
                     <Tooltip contentStyle={tooltipStyle} itemStyle={{ color: "#F0F0FF" }} />
+=======
+                    <Tooltip contentStyle={{ background: "#1F2937", border: "1px solid rgba(255,255,255,0.12)", color: "var(--color-text-primary)", borderRadius: "8px", fontSize: "11px", boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.3)" }} itemStyle={{ color: "var(--color-text-primary)" }} />
+>>>>>>> Stashed changes
                   </PieChart>
                 </ResponsiveContainer>
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 8 }}>
                 {categoryData.map(d => (
                   <div key={d.name} style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+<<<<<<< Updated upstream
                     <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                       <span style={{ width: 8, height: 8, borderRadius: "50%", background: d.color, display: "inline-block", boxShadow: `0 0 6px ${d.color}80` }} />
                       <span style={{ fontSize: 12, color: "var(--color-text-secondary)" }}>{d.name}</span>
                     </div>
                     <span className="font-mono-data" style={{ fontSize: 13, color: "var(--color-text-primary)", fontWeight: 800 }}>{d.value}</span>
+=======
+                    <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                      <span style={{ width: 8, height: 8, borderRadius: "50%", background: d.color, display: "inline-block", flexShrink: 0 }} />
+                      <span style={{ fontSize: "12px", color: "var(--color-text-secondary)" }}>{d.name}</span>
+                    </div>
+                    <span className="font-mono-data" style={{ fontSize: "12px", color: "var(--color-text-primary)", fontWeight: 600 }}>{d.value}</span>
+>>>>>>> Stashed changes
                   </div>
                 ))}
               </div>
             </>
           ) : (
+<<<<<<< Updated upstream
             <div className="empty-state" style={{ padding: 24 }}>
               <div className="empty-state-icon"><Activity size={22} style={{ color: "var(--color-accent-light)" }} /></div>
               <p style={{ margin: 0, fontSize: 12.5, color: "var(--color-text-muted)" }}>No queries yet</p>
+=======
+            <div className="empty-state" style={{ padding: "20px" }}>
+              <p style={{ margin: 0, fontSize: "12.5px", color: "var(--color-text-muted)" }}>No queries yet</p>
+>>>>>>> Stashed changes
             </div>
           )}
         </motion.div>
@@ -598,8 +711,13 @@ export default function DashboardPage() {
           background: "rgba(99,102,241,0.02)",
         }}>
           <div>
+<<<<<<< Updated upstream
             <p style={{ margin: 0, fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, color: "var(--color-text-primary)", fontSize: 14 }}>Recent Audit Events</p>
             <p style={{ margin: "2px 0 0", fontSize: 11.5, color: "var(--color-text-muted)" }}>Latest 8 governance decisions</p>
+=======
+            <p style={{ margin: 0, fontWeight: 600, color: "var(--color-text-primary)", fontSize: "13.5px" }}>Recent Events</p>
+            <p style={{ margin: "2px 0 0", fontSize: "11.5px", color: "var(--color-text-muted)" }}>Latest 8 audit decisions</p>
+>>>>>>> Stashed changes
           </div>
           <Link href="/dashboard/events" className="btn btn-ghost" style={{ fontSize: 11.5, gap: 5 }}>
             View all <ArrowRight size={12} />
@@ -633,6 +751,7 @@ export default function DashboardPage() {
                       }`,
                     }}
                   >
+<<<<<<< Updated upstream
                     <td className="font-mono-data" style={{ color: "var(--color-text-muted)", fontSize: 11.5 }}>{formatTime(r.timestamp_ms)}</td>
                     <td>
                       <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 12, fontWeight: 600, color: CATEGORY_COLORS[r.category] ?? "var(--color-text-muted)" }}>
@@ -643,6 +762,18 @@ export default function DashboardPage() {
                     <td className="font-mono-data" style={{ fontSize: 11.5, color: "var(--color-text-secondary)" }}>{r.audit_event.model ?? "—"}</td>
                     <td className="font-mono-data right" style={{ fontSize: 12, fontWeight: 700, color: "var(--color-text-primary)" }}>{formatINR(r.audit_event.cost_total ?? 0, 5)}</td>
                     <td className="font-mono-data right" style={{ color: "var(--color-text-muted)", fontSize: 11.5 }}>{formatLatency(r.audit_event.latency_used_ms ?? 0)}</td>
+=======
+                    <td className="font-mono-data" style={{ color: "var(--color-text-muted)", fontSize: "11.5px" }}>{formatTime(r.timestamp_ms)}</td>
+                    <td>
+                      <span style={{ display: "inline-flex", alignItems: "center", gap: "5px", fontSize: "12.5px", fontWeight: 500, color: CATEGORY_COLORS[r.category] ?? "var(--color-text-muted)" }}>
+                        <span style={{ width: 6, height: 6, borderRadius: "50%", background: CATEGORY_COLORS[r.category] ?? "var(--color-text-muted)", display: "inline-block" }} />
+                        {CATEGORY_LABELS[r.category] ?? r.category}
+                      </span>
+                    </td>
+                    <td className="font-mono-data" style={{ fontSize: "11.5px", color: "var(--color-text-secondary)" }}>{r.audit_event.model ?? "—"}</td>
+                    <td className="font-mono-data right" style={{ fontSize: "12px", fontWeight: 600 }}>{formatINR(r.audit_event.cost_total ?? 0, 5)}</td>
+                    <td className="font-mono-data right" style={{ color: "var(--color-text-muted)", fontSize: "11.5px" }}>{formatLatency(r.audit_event.latency_used_ms ?? 0)}</td>
+>>>>>>> Stashed changes
                     <td className="right"><ActionBadge action={r.audit_event.action} /></td>
                   </motion.tr>
                 ))}
@@ -650,18 +781,43 @@ export default function DashboardPage() {
               {events.length === 0 && (
                 <tr><td colSpan={6}>
                   <div className="empty-state">
+<<<<<<< Updated upstream
                     <div className="empty-state-icon"><Activity size={22} style={{ color: "var(--color-accent-light)" }} /></div>
                     <p style={{ margin: 0, fontSize: 13, color: "var(--color-text-secondary)", fontWeight: 600 }}>No events yet</p>
                     <p style={{ margin: 0, fontSize: 12, color: "var(--color-text-muted)" }}>
                       <Link href="/dashboard/query" style={{ color: "var(--color-accent-light)", fontWeight: 700 }}>Submit a query</Link> to start the audit trail.
                     </p>
+=======
+                    <p style={{ margin: 0, fontSize: "13px", color: "var(--color-text-muted)" }}>No events — <Link href="/dashboard/query" style={{ color: "#14B8A6", fontWeight: 600 }}>submit a query</Link> to begin.</p>
+>>>>>>> Stashed changes
                   </div>
                 </td></tr>
               )}
             </tbody>
           </table>
         </div>
+<<<<<<< Updated upstream
       </motion.div>
+=======
+      </div>
+
+      {/* Quick links */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "12px" }}>
+        {[
+          { label: "Live Query", desc: "Submit queries to Groq", href: "/dashboard/query", color: "#0D9488" },
+          { label: "Analytics", desc: "Deep cost analysis", href: "/dashboard/analytics", color: "#6366F1" },
+          { label: "Session", desc: "Manage budget & reset", href: "/dashboard/session", color: "#D97706" },
+          { label: "Health", desc: "Backend status check", href: "/dashboard/health", color: "#16A34A" },
+        ].map(item => (
+          <Link key={item.label} href={item.href} style={{ textDecoration: "none" }}>
+            <div className="card card-hover" style={{ padding: "14px 16px", borderLeft: `3px solid ${item.color}`, cursor: "pointer" }}>
+              <p style={{ margin: "0 0 3px", fontWeight: 600, color: "var(--color-text-primary)", fontSize: "13px" }}>{item.label}</p>
+              <p style={{ margin: 0, fontSize: "11.5px", color: "var(--color-text-muted)" }}>{item.desc}</p>
+            </div>
+          </Link>
+        ))}
+      </div>
+>>>>>>> Stashed changes
     </div>
   );
 }
